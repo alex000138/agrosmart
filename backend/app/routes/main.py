@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
-from ..extensions import db
+from agrosmart.backend.extensions import db
 from ..models.models import Variety
 
 main_bp = Blueprint('main', __name__)
@@ -48,7 +48,13 @@ def add_info():
 # Остальные маршруты остаются аналогичными с заменой main на main_bp
 @main_bp.route('/tables')
 def tables():
-    all_varieties = Variety.query.order_by(Variety.id).all()
+    all_varieties = db.session.query(
+        Variety.id,
+        Variety.name_main.label('name'),
+        Variety.type_main.label('type'),
+        Variety.code,
+        Variety.registration_year
+    ).order_by(Variety.id).all()
     return render_template('tables.html', varieties=all_varieties)
 
 @main_bp.route('/about')
@@ -58,6 +64,6 @@ def about():
 
 @main_bp.route('/test-db')
 def test_db():
-    from ..models import Variety
+    from ..models.models import Variety
     count = Variety.query.count()
     return f'В базе {count} записей'

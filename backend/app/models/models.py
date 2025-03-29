@@ -1,5 +1,5 @@
 from datetime import date
-from ..extensions import db
+from agrosmart.backend.extensions import db
 from sqlalchemy import ForeignKey, Numeric
 from sqlalchemy.orm import relationship
 
