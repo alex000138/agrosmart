@@ -20,12 +20,50 @@ def validate_json(f):
 def ask_handler():
     """
     Обработчик AI запросов
-    Пример тела запроса:
-    {
-        "prompt": "Какие культуры лучше сажать?",
-        "model": "anthropic/claude-3-haiku",
-        "temperature": 0.5
-    }
+    ---
+    tags:
+      - AI
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: object
+          properties:
+            prompt:
+              type: string
+              description: Текст запроса к AI
+              example: "Какие культуры лучше сажать?"
+            model:
+              type: string
+              description: Модель AI (опционально)
+              example: "anthropic/claude-3-haiku"
+            temperature:
+              type: number
+              description: Креативность ответа (0-1)
+              example: 0.5
+    responses:
+      200:
+        description: Успешный ответ AI
+        schema:
+          type: object
+          properties:
+            answer:
+              type: string
+            model:
+              type: string
+            status:
+              type: string
+      400:
+        description: Неверный запрос
+      415:
+        description: Неверный формат запроса (не JSON)
+      503:
+        description: Ошибка сервиса AI
     """
     try:
         data = request.get_json()

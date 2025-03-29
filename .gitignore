@@ -7,3 +7,26 @@ __pycache__/
 db/
 migrations/
 .flaskenv
+
+# Python
+*.py[cod]
+*.so
+.Python
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Temp files
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Логи и кэши
+*.log
+.cache/
+
+# Архивные версии
+*.7z
+*.zip

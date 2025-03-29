@@ -2,9 +2,20 @@
 
 {% block content %}
 <div class="container">
-    <h1>Управление сортами</h1>
+    <h1>Управление данными</h1>
 
-    <div class="table-container">
+    <nav class="table-tabs">
+        <ul>
+            <li class="active"><a href="#varieties">Сорта</a></li>
+            <li><a href="#authors">Авторы</a></li>
+            <li><a href="#regions">Регионы</a></li>
+            <li><a href="#diseases">Заболевания</a></li>
+            <li><a href="#quality">Качество</a></li>
+        </ul>
+    </nav>
+
+    <div class="table-container active" id="varieties">
+        <h2>Таблица сортов</h2>
         <table class="adaptive-table">
             <thead>
                 <tr>
@@ -36,5 +47,92 @@
             </tbody>
         </table>
     </div>
+
+    <div class="table-container" id="authors">
+        <h2>Таблица авторов</h2>
+        <table class="adaptive-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя автора</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Данные будут добавлены позже -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container" id="regions">
+        <h2>Таблица регионов</h2>
+        <table class="adaptive-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название региона</th>
+                    <th>Код</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Данные будут добавлены позже -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container" id="diseases">
+        <h2>Таблица заболеваний</h2>
+        <table class="adaptive-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название заболевания</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Данные будут добавлены позже -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container" id="quality">
+        <h2>Таблица качества</h2>
+        <table class="adaptive-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Содержание белка</th>
+                    <th>Содержание глютена</th>
+                    <th>Вес в мешке</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Данные будут добавлены позже -->
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.table-tabs li');
+    const containers = document.querySelectorAll('.table-container');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Удаляем активный класс у всех вкладок и контейнеров
+            tabs.forEach(t => t.classList.remove('active'));
+            containers.forEach(c => c.classList.remove('active'));
+            
+            // Добавляем активный класс текущей вкладке
+            this.classList.add('active');
+            
+            // Показываем соответствующий контейнер
+            const targetId = this.querySelector('a').getAttribute('href').substring(1);
+            document.getElementById(targetId).classList.add('active');
+        });
+    });
+});
+</script>
 {% endblock %}

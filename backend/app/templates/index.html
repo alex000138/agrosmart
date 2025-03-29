@@ -7,6 +7,38 @@
     
     <!-- Основной контент -->
     <main>
+        <!-- Функции системы -->
+        <section class="functions-section">
+            <h2>Функции системы</h2>
+            <div class="function-groups">
+                <div class="function-group">
+                    <h3>Управление сортами</h3>
+                    <ul>
+                        <li>Добавление нового сорта</li>
+                        <li>Редактирование сорта</li>
+                        <li>Удаление сорта</li>
+                        <li>Просмотр списка сортов</li>
+                    </ul>
+                </div>
+                <div class="function-group">
+                    <h3>Поиск и фильтрация</h3>
+                    <ul>
+                        <li>Поиск по названию</li>
+                        <li>Фильтр по региону</li>
+                        <li>Фильтр по году</li>
+                    </ul>
+                </div>
+                <div class="function-group">
+                    <h3>Отчеты и аналитика</h3>
+                    <ul>
+                        <li>Отчет по урожайности</li>
+                        <li>Анализ качества</li>
+                        <li>Статистика по регионам</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
         <!-- Поиск -->
         <div class="search-container">
             <form method="get" action="{{ url_for('main.index') }}">

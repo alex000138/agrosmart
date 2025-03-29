@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from ..extensions import db
-from ..models.variety import Variety
+from ..models.models import Variety
 
 main_bp = Blueprint('main', __name__)
 
