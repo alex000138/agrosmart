@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Редактирование сорта: {{ variety.name_main }}</h1>
+
+    <form method="POST">
+        <div class="form-group">
+            <label>Название*:</label>
+            <input type="text" name="name" value="{{ variety.name_main }}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Тип:</label>
+            <input type="text" name="type" value="{{ variety.type_main }}">
+        </div>
+
+        <div class="form-group">
+            <label>Код:</label>
+            <input type="text" name="code" value="{{ variety.code }}">
+        </div>
+
+        <div class="form-group">
+            <label>Происхождение:</label>
+            <input type="text" name="origin" value="{{ variety.origin }}">
+        </div>
+
+        <div class="form-group">
+            <label>Год регистрации:</label>
+            <input type="number" name="year"
+                   value="{{ variety.registration_year if variety.registration_year else '' }}"
+                   min="1900" max="{{ current_year }}">
+        </div>
+
+        <div class="form-group">
+            <label>Описание:</label>
+            <textarea name="description">{{ variety.description }}</textarea>
+        </div>
+
+        <button type="submit" class="btn-save">Сохранить</button>
+        <a href="{{ url_for('main.tables') }}" class="btn-cancel">Отмена</a>
+    </form>
+</div>
+{% endblock %}

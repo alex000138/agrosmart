@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <!-- Навигация -->
+    {% include '_nav_panel.html' %}
+    
+    <!-- Основной контент -->
+    <main>
+        <!-- Поиск -->
+        <div class="search-container">
+            <form method="get" action="{{ url_for('main.index') }}">
+                <input type="search" name="query" placeholder="Поиск сортов..." 
+                       value="{{ query or '' }}">
+                <button type="submit">Найти</button>
+            </form>
+        </div>
+        
+        <!-- Результаты -->
+        {% if results %}
+        <div class="results">
+            <h3>Найдено сортов: {{ results|length }}</h3>
+            <ul>
+                {% for variety in results %}
+                <li>
+                    <a href="{{ url_for('main.get_variety', variety_id=variety.id) }}"
+                       data-variety-id="{{ variety.id }}">
+                        {{ variety.name_main }} ({{ variety.type_main }})
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </main>
+</div>
+{% endblock %}

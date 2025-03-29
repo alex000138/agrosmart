@@ -1,0 +1,21 @@
+### Code Review
+@deepseek_base = https://openrouter.ai/api/v1
+@deepseek_key = {{$processEnv OPENROUTER_API_KEY}}
+
+POST {{deepseek_base}}/chat/completions
+Authorization: Bearer {{deepseek_key}}
+Content-Type: application/json
+
+{
+  "model": "deepseek-ai/deepseek-coder-33b-instruct",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are Senior Python Code Reviewer. Analyze code for security and best practices."
+    },
+    {
+      "role": "user",
+      "content": "Check this code:\n```python\n@app.route('/data')\ndef data():\n    return jsonify(db.query.all())\n```"
+    }
+  ]
+}

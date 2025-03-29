@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Управление сортами</h1>
+
+    <div class="table-container">
+        <table class="adaptive-table">
+            <thead>
+                <tr>
+                    <th class="col-name">Название</th>
+                    <th class="col-type">Тип</th>
+                    <th class="col-code">Код</th>
+                    <th class="col-year">Год</th>
+                    <th class="col-actions">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for variety in varieties %}
+                <tr>
+                    <td>{{ variety.name_main|truncate(20) }}</td>
+                    <td>{{ variety.type_main|default('—', true) }}</td>
+                    <td>{{ variety.code|default('—', true) }}</td>
+                    <td>{{ variety.registration_year|default('—', true) }}</td>
+                    <td class="actions">
+                        <a href="{{ url_for('main.edit_variety', id=variety.id) }}"
+                           class="btn-edit"
+                           title="Редактировать">✎</a>
+                        <a href="{{ url_for('main.delete_variety', id=variety.id) }}"
+                           class="btn-delete"
+                           onclick="return confirm('Удалить {{ variety.name_main }}?')"
+                           title="Удалить">✖</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

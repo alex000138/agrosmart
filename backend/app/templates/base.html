@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrosmart - Справочник пшеницы</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    {% block scripts %}{% endblock %}  <!-- Блок для скриптов -->
+</head>
+<body>
+    <header class="header">
+        <div class="header__top">
+            <!-- Заголовок слева -->
+            <div class="header__title-container">
+                <h1 class="header__title">
+                    AgroSmart
+                    <span class="header__subtitle">Электронный справочник пшеницы</span>
+                </h1>
+            </div>
+
+            <!-- Логотип справа -->
+            <a href="{{ url_for('main.index') }}" class="brand">
+                <img src="{{ url_for('static', filename='logo.png') }}"
+                     alt="Agrosmart"
+                     class="brand__logo">
+            </a>
+        </div>
+
+        <!-- Навигация -->
+        <nav class="header__nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="{{ url_for('main.index') }}" class="nav-link">
+                        <span class="nav-icon">🏠</span>
+                        Главная
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('main.tables') }}" class="nav-link">
+                        <span class="nav-icon">📊</span>
+                        Таблицы
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('main.about') }}" class="nav-link">
+                        <span class="nav-icon">ℹ️</span>
+                        О нас
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer class="footer">
+        <p>&copy; 2025 Agrosmart. Все права защищены.</p>
+    </footer>
+</body>
+</html>

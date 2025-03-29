@@ -1,0 +1,63 @@
+<!-- scripts -->
+{% block scripts %}
+<script>
+    // Унифицированная функция загрузки данных
+    function loadVarietyInfo(varietyId) {
+        const infoContainer = document.getElementById('dynamic-info');
+        infoContainer.innerHTML = '<div class="loading">Загрузка...</div>';
+    
+        fetch(`/get_variety/${varietyId}`)
+            .then(handleResponse)
+            .then(data => updateVarietyInfo(data))
+            .catch(error => showError(error));
+    }
+    
+    // Обработка ответа
+    function handleResponse(response) {
+        if (!response.ok) throw new Error('Ошибка сети');
+        return response.json();
+    }
+    
+    // Обновление информации о сорте
+    function updateVarietyInfo(data) {
+        const template = data.error ? 
+            errorTemplate(data.error) : 
+            varietyDetailsTemplate(data);
+        
+        document.getElementById('dynamic-info').innerHTML = template;
+    }
+    
+    // Шаблоны
+    const errorTemplate = (error) => `
+        <p class="error-message">${error}</p>
+    `;
+    
+    const varietyDetailsTemplate = (data) => `
+        <div class="variety-info">
+            <h3>${data.name_main}</h3>
+            <dl class="details-list">
+                ${detailItem('Тип', data.type_main)}
+                ${detailItem('Код', data.code)}
+                ${detailItem('Описание', data.description)}
+                ${detailItem('Происхождение', data.origin)}
+                ${detailItem('Год регистрации', data.registration_year)}
+            </dl>
+        </div>
+    `;
+    
+    const detailItem = (label, value) => `
+        <div class="detail-item">
+            <dt>${label}:</dt>
+            <dd>${value || '—'}</dd>
+        </div>
+    `;
+    
+    // Обработка ошибок
+    function showError(error) {
+        console.error('Ошибка:', error);
+        document.getElementById('dynamic-info').innerHTML = `
+            <p class="error-message">Ошибка загрузки: ${error.message}</p>
+        `;
+    }
+    </script>
+{% endblock %}

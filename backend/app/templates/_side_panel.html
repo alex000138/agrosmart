@@ -1,0 +1,16 @@
+<aside class="side-panel">
+    <!-- Последние сорта -->
+    <div class="card">
+        <h2 class="card__title">Новые добавления</h2>
+        <div class="latest-varieties">
+            {% for variety in latest_varieties %}
+            <div class="variety-item"
+                 onclick="loadVarietyInfo({{ variety.id }})"
+                 data-variety-id="{{ variety.id }}">
+                <div class="variety-name">{{ variety.name_main }}</div>
+                <div class="variety-year">{{ variety.registration_year }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</aside>

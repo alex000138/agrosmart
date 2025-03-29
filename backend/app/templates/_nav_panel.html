@@ -1,0 +1,32 @@
+<nav class="side-panel nav-panel">
+    <div class="card">
+        <h2 class="card__title">Меню</h2>
+        <ul class="nav-menu">
+            <li class="nav-item {% if request.endpoint == 'main.index' %}active{% endif %}">
+                <a href="{{ url_for('main.index') }}" class="nav-link">🏠 Главная</a>
+            </li>
+            <li class="nav-item {% if request.endpoint == 'main.tables' %}active{% endif %}">
+                <a href="{{ url_for('main.tables') }}" class="nav-link">📊 Таблицы</a>
+            </li>
+            <li class="nav-item {% if request.endpoint == 'main.about' %}active{% endif %}">
+                <a href="{{ url_for('main.about') }}" class="nav-link">ℹ️ О нас</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Форма добавления -->
+    <div class="card">
+        <h2 class="card__title">Добавить сорт</h2>
+        <form class="add-form" action="{{ url_for('main.add_info') }}" method="post">
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Название сорта" required>
+                <input type="text" name="type" placeholder="Тип сорта" required>
+                <input type="text" name="code" placeholder="Код сорта" required>
+                <textarea name="description" placeholder="Описание" required></textarea>
+                <input type="text" name="origin" placeholder="Происхождение" required>
+                <input type="number" name="year" placeholder="Год регистрации" min="1900" max="2100" required>
+                <button type="submit" class="btn-submit">➕ Добавить</button>
+            </div>
+        </form>
+    </div>
+</nav>
