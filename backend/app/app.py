@@ -1,8 +1,5 @@
 import sys
 import os
-print("PYTHONPATH:", sys.path)
-print("Current working directory:", os.getcwd())
-
 from flask import Flask, render_template
 from dotenv import load_dotenv
 from flasgger import Swagger
@@ -10,10 +7,17 @@ from flask_migrate import Migrate
 from agrosmart.backend.extensions import db
 import os
 
+# Импорт всех Blueprints
+from agrosmart.backend.app.routes.main import main_bp
+from agrosmart.backend.app.routes.api_routes import api_bp
+from agrosmart.backend.app.routes.github_routes import github_bp
+from agrosmart.backend.app.routes.ai_routes import ai_bp
+
 # Загрузка переменных окружения ПЕРЕД созданием приложения
 load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))  # Явный путь к .env
 
 app = Flask(__name__)
+app.logger.setLevel('DEBUG')
 
 # Конфигурация базы данных
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://postgres:12345@localhost:5432/agrosmart1')
@@ -35,9 +39,10 @@ swagger = Swagger(app)
 print("OPENROUTER_API_KEY exists:", "OPENROUTER_API_KEY" in os.environ)
 print("Current working directory:", os.getcwd())
 
-# Регистрация blueprints (после создания app)
-from .routes.ai_routes import ai_bp
-app.register_blueprint(ai_bp, url_prefix='/api/ai')
+# Регистрация всех blueprints
+app.register_blueprint(main_bp)
+app.register_blueprint(api_bp, url_prefix='/api')
+app.register_blueprint(github_bp)
 
 @app.errorhandler(500)
 def internal_error(error):

@@ -22,9 +22,11 @@ def create_app():
     # Регистрация blueprint'ов
     from .routes.main import main_bp
     from .routes.ai_routes import ai_bp
+    from .routes.api_routes import api_bp
     
     app.register_blueprint(main_bp)
     app.register_blueprint(ai_bp, url_prefix='/api/ai')
+    app.register_blueprint(api_bp, url_prefix='/api')
     
     # Создание таблиц БД
     with app.app_context():

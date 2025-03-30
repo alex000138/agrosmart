@@ -1,12 +1,39 @@
 from flask import Blueprint, Flask, render_template, request, jsonify
-from extensions import db
-from models import (Variety,DiseaseResistance,Disease,Region,GrowingRegions,Author,Applicant,VarietyAuthors,VarietyApplicants,QualityParameters)
+from agrosmart.backend.extensions import db
+from agrosmart.backend.app.models.models import (Variety,DiseaseResistance,Disease,Region,VarietyRegion,Author,Applicant,VarietyAuthor,VarietyApplicant,QualityParameters)
 
 # Создание Blueprint
-main = Blueprint('main', __name__)
+api_bp = Blueprint('api', __name__)
 
-# Маршрут добавления нового сорта
-@main.route('/api/varieties', methods=['POST'])
+# Получение списка сортов
+@api_bp.route('/varieties', methods=['GET'])
+def get_varieties():
+    try:
+        # Логирование для отладки
+        print("Attempting to query varieties...")
+        varieties = Variety.query.all()
+        print(f"Found {len(varieties)} varieties")
+        
+        if not varieties:
+            return jsonify({"status": "success", "message": "No varieties found", "data": []}), 200
+            
+        result = []
+        for variety in varieties:
+            print(f"Processing variety: {variety.id} - {variety.name_main}")
+            result.append({
+                'id': variety.id,
+                'name': variety.name_main,
+                'type': variety.type_main,
+                'code': variety.code,
+                'origin': variety.origin
+            })
+        return jsonify({"status": "success", "data": result}), 200
+    except Exception as e:
+        print(f"Error in get_varieties: {str(e)}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+# Добавление нового сорта
+@api_bp.route('/varieties', methods=['POST'])
 def create_variety():
     try:
         # Получаем данные из запроса
@@ -48,7 +75,7 @@ def create_variety():
             if region is None:
                 region = Region(name_territory=region_name)
                 db.session.add(region)
-            variety.growing_regions.append(region)
+            variety.regions.append(region)
 
         # Добавляем заявителей
         applicants = data.get('Заявители', '').split(';')

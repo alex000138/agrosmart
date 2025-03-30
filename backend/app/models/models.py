@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship
 
 class Variety(db.Model):
     __tablename__ = 'varieties'
+    __table_args__ = {'extend_existing': True}
 
     id = db.Column(db.Integer, primary_key=True)
     name_main = db.Column('name', db.String(255), nullable=False, index=True)
