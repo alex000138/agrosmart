@@ -1,1 +1,2 @@
-# Инициализация корневого пакета agrosmart
+# Package initialization
+__version__ = '0.1'

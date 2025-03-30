@@ -21,7 +21,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Инициализация расширений
 db.init_app(app)
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)  # Миграции отключены
 
 # Конфигурация Swagger
 app.config['SWAGGER'] = {

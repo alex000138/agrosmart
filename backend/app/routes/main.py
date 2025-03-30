@@ -10,8 +10,8 @@ def index():
     query = request.args.get('query', '')
     
     try:
-        latest_varieties = Variety.query.order_by(Variety.id.desc()).limit(5).all()
-        results = Variety.query.filter(Variety.name_main.ilike(f'%{query}%')).all() if query else []
+        latest_varieties = db.session.query(Variety).order_by(Variety.id.desc()).limit(5).all()
+        results = db.session.query(Variety).filter(Variety.name_main.ilike(f'%{query}%')).all() if query else []
         
         return render_template(
             'index.html',
@@ -50,8 +50,8 @@ def add_info():
 def tables():
     all_varieties = db.session.query(
         Variety.id,
-        Variety.name_main.label('name'),
-        Variety.type_main.label('type'),
+        Variety.name_main.label('name_main'),
+        Variety.type_main.label('type_main'), 
         Variety.code,
         Variety.registration_year
     ).order_by(Variety.id).all()

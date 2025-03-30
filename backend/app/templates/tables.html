@@ -34,13 +34,8 @@
                     <td>{{ variety.code|default('—', true) }}</td>
                     <td>{{ variety.registration_year|default('—', true) }}</td>
                     <td class="actions">
-                        <a href="{{ url_for('main.edit_variety', id=variety.id) }}"
-                           class="btn-edit"
-                           title="Редактировать">✎</a>
-                        <a href="{{ url_for('main.delete_variety', id=variety.id) }}"
-                           class="btn-delete"
-                           onclick="return confirm('Удалить {{ variety.name_main }}?')"
-                           title="Удалить">✖</a>
+                        <span class="btn-edit" title="Редактирование временно недоступно">✎</span>
+                        <span class="btn-delete" title="Удаление временно недоступно">✖</span>
                     </td>
                 </tr>
                 {% endfor %}

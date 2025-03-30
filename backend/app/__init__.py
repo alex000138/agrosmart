@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_migrate import Migrate 
-from .config import Config
+from agrosmart.backend.app.config import Config
 from agrosmart.backend.extensions import db
 from dotenv import load_dotenv
 import os
